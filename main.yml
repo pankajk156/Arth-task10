@@ -1,0 +1,13 @@
+- hosts: webserver
+  tasks:
+  - name: ansible create directory
+    file:
+      path: /rhel8
+      state: directory
+  - name: Add Some repo
+    yum_repository:
+      name: somerepo
+      description: Yum repository for RHEL 8 Softwares
+      baseurl: /rhel8/AppStream
+      gpgcheck: 0
+      params: "{{ my_role_somerepo_params }}"

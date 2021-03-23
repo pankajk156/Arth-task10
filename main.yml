@@ -5,7 +5,7 @@
     file:
       path: /rhel8
       state: directory
-  - name: Mount DVD read-only
+  - name: Mount DVD 
     mount:
       path: /rhel8
       src: /dev/sr0
@@ -14,13 +14,13 @@
       state: present
   - name: Repo for OS Soft 1
     yum_repository:
-      name: Repo1
+      name: repo1
       description: Yum repository for RHEL 8 Softwares
       baseurl: /rhel8/AppStream
       gpgcheck: 0
   - name: Repo for OS Soft 2
     yum_repository:
-      name: Repo2
+      name: repo2
       description: Yum repository for RHEL 8 Softwares
       baseurl: /rhel8/BaseOS
       gpgcheck: 0
@@ -28,7 +28,7 @@
     yum_repository:
          description: Repo for docker
          name: docker-ce
-         baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/Packages
+         baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/
          gpgcheck: no
   - name: installing docker
     command: "yum install docker-ce --nobest -y"

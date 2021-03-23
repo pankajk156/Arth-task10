@@ -1,18 +1,61 @@
 - hosts: webserver
   tasks:
-  - name: ansible create directory
+  - name: Creation directory for mounting DVD
     file:
       path: /rhel8
       state: directory
-  - name: Repo for OS 
+  - name: Mount DVD read-only
+    mount:
+      path: /rhel8
+      src: /dev/sr0
+      fstype: iso9660
+      opts: ro
+      state: present
+  - name: Repo for OS Soft 1
     yum_repository:
       name: Repo 1
       description: Yum repository for RHEL 8 Softwares
       baseurl: /rhel8/AppStream
       gpgcheck: 0
-  - name: Repo for OS 2
+  - name: Repo for OS Soft 2
     yum_repository:
       name: Repo 2
       description: Yum repository for RHEL 8 Softwares
       baseurl: /rhel8/BaseOS
       gpgcheck: 0
+  - name: Docker Repository
+    yum_repository:
+         description: Repo for docker
+         name: docker-ce
+         baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/
+         gpgcheck: no
+  - name: installing docker
+    package:
+         name: docker-ce
+         state: present
+  - name: starting docker services
+    service:
+          name: docker
+          state: started   
+          enabled: yes
+  - name: installation of docker SDK
+    command: "pip3 install docker"    
+  - name: Creation of directory
+    file:
+          path: /webpages
+          state: directory
+  - name: copying webpage to managed node directory
+    copy:
+          src: index.html
+          dest: /webpages
+  - name: Container deployment
+    docker_container:
+           name: httpd
+           image: "httpd"
+           state: started
+           exposed_ports: 80
+           ports: 8082:80
+           volumes: /webpages:/usr/local/apache2/htdocs
+
+
+

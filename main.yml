@@ -1,4 +1,5 @@
 - hosts: webserver
+  
   tasks:
   - name: Creation directory for mounting DVD
     file:

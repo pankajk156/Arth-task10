@@ -4,10 +4,15 @@
     file:
       path: /rhel8
       state: directory
-  - name: Add Some repo
+  - name: Repo for OS 
     yum_repository:
-      name: somerepo
+      name: Repo 1
       description: Yum repository for RHEL 8 Softwares
       baseurl: /rhel8/AppStream
       gpgcheck: 0
-      params: "{{ my_role_somerepo_params }}"
+  - name: Repo for OS 2
+    yum_repository:
+      name: Repo 2
+      description: Yum repository for RHEL 8 Softwares
+      baseurl: /rhel8/BaseOS
+      gpgcheck: 0

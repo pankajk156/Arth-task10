@@ -38,9 +38,9 @@
           name: docker
           state: started   
           enabled: yes
-  - name: installation of docker SDK
+  - name: installating docker SDK
     command: "pip3 install docker"    
-  - name: Creation of directory
+  - name: Creating directory
     file:
           path: /webpages
           state: directory
@@ -48,7 +48,7 @@
     copy:
           src: index.html
           dest: /webpages
-  - name: Container deployment
+  - name: Deploying Container with running webserver
     docker_container:
            name: httpd
            image: "httpd"

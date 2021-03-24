@@ -3,8 +3,7 @@
   tasks:
   - name: Docker Repository
     yum_repository:
-      description: Repo for docker
-      name: docker-ce
+      name: docker
       baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/
       gpgcheck: no
   - name: installing docker

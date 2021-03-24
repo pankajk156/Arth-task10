@@ -24,3 +24,16 @@
       description: Yum repository for RHEL 8 Softwares
       baseurl: /rhel8/BaseOS
       gpgcheck: 0
+- name: Docker Repository
+    yum_repository:
+         description: Repo for docker
+         name: docker-ce
+         baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/
+         gpgcheck: no
+- name: installing docker
+  command: "yum install docker-ce --nobest -y"
+- name: starting docker services
+  service:
+        name: docker
+        state: started   
+        enabled: yes

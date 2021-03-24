@@ -5,7 +5,7 @@
     yum_repository:
       description: Repo for docker
       name: docker
-      baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/
+      baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/
       gpgcheck: no
   - name: installing docker
     command: "yum install docker-ce --nobest -y"

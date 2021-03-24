@@ -1,16 +1,21 @@
 - hosts: webserver
   
   tasks:
-  - name: Docker Repository
-    yum_repository:
-      description: Repo for docker
-      name: docker
-      baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/
-      gpgcheck: no
-  - name: installing docker
-    command: "yum install docker-ce --nobest -y"
-  - name: starting docker services
-    service:
-        name: docker
-        state: started   
-        enabled: yes
+  - name: installating docker SDK
+    command: "pip3 install docker"    
+  - name: Creating directory
+    file:
+          path: /webpages
+          state: directory
+  - name: copying webpage to managed node directory
+    copy:
+          src: index.html
+          dest: /webpages
+  - name: Deploying Container with running webserver
+    docker_container:
+           name: httpd
+           image: "httpd"
+           state: started
+           exposed_ports: 80
+           ports: 8082:80
+           volumes: /webpages:/usr/local/apache2/htdocs
